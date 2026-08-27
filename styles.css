@@ -3,3 +3,36 @@
 ::before {
   box-sizing: border-box;
 }
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header {
+  font-size: 4rem;
+}
+
+.gap {
+  margin-inline: 10px;
+}
+
+.grid {
+  min-width: 960px;
+  min-height: 960px;
+  display: flex;
+  flex-direction: column;
+  margin-block: 20px;
+  border: solid 2px black;
+}
+
+.grid > * {
+  flex: auto;
+  display: flex;
+}
+
+.grid > * > * {
+  border: solid 2px black;
+  flex: auto;
+}
