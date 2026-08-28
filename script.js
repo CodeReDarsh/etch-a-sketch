@@ -34,7 +34,7 @@ function promptForSize() {
 function toggleColor() {
   console.log("in color toggle");
   color = !color;
-  const modeText = buttons.lastElementChild.lastElementChild;
+  const modeText = colorOnOff.lastElementChild;
   if (color) {
     modeText.textContent = "ON";
     modeText.style.color = "red";
@@ -46,15 +46,17 @@ function toggleColor() {
 
 function handleClick(e) {
   console.log("in handleClick", e);
-  if (e.target.id === "btn-change-size") {
+  if (e.currentTarget.id === "btn-change-size") {
     promptForSize();
-  } else if (e.target.id === "btn-toggle-color") {
+  } else if (e.currentTarget.id === "btn-toggle-color") {
     toggleColor();
   }
 }
 
 let color = false;
-const buttons = document.querySelector(".btn-container");
-const grid = buttons.nextElementSibling;
+const changeSize = document.querySelector("#btn-change-size");
+const colorOnOff = changeSize.nextElementSibling;
+changeSize.addEventListener("click", handleClick);
+colorOnOff.addEventListener("click", handleClick);
+const grid = document.querySelector(".grid")
 generateGrid();
-buttons.addEventListener("click", handleClick);
