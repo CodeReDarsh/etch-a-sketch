@@ -31,12 +31,29 @@ function promptForSize() {
   }
 }
 
-function handleClick(e) {
-  if (e.target.id === "btn-change-size") {
-    promptForSize();
+function toggleColor() {
+  console.log("in color toggle");
+  color = !color;
+  const modeText = buttons.lastElementChild.lastElementChild;
+  if (color) {
+    modeText.textContent = "ON";
+    modeText.style.color = "red";
+  } else {
+    modeText.textContent = "OFF";
+    modeText.style.color = "black";
   }
 }
 
+function handleClick(e) {
+  console.log("in handleClick", e);
+  if (e.target.id === "btn-change-size") {
+    promptForSize();
+  } else if (e.target.id === "btn-toggle-color") {
+    toggleColor();
+  }
+}
+
+let color = false;
 const buttons = document.querySelector(".btn-container");
 const grid = buttons.nextElementSibling;
 generateGrid();
