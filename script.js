@@ -53,10 +53,29 @@ function handleClick(e) {
   }
 }
 
+function generateRandom() {
+  return Math.floor(Math.random() * 256);
+}
+
+function generateRandomColor(params) {
+  const red = generateRandom();
+  const green = generateRandom();
+  const blue = generateRandom();
+  return `rgb(${red}, ${green}, ${blue})`;
+}
+
+
+function handleMouseOver(e) {
+  console.log("in mouseover");
+  console.log("target:", e.target);
+  e.target.style.backgroundColor = generateRandomColor();
+}
+
 let color = false;
 const changeSize = document.querySelector("#btn-change-size");
-const colorOnOff = changeSize.nextElementSibling;
-changeSize.addEventListener("click", handleClick);
+const colorOnOff = document.querySelector("#btn-toggle-color");
 colorOnOff.addEventListener("click", handleClick);
+
 const grid = document.querySelector(".grid")
 generateGrid();
+grid.addEventListener("mouseover", handleMouseOver)
