@@ -12,6 +12,7 @@ function generateGrid(dimension = 16) {
 }
 
 function promptForSize() {
+  console.log("prompting user for size");
   let dimension = prompt(
     "Enter a grid length between 1 and 100 for generating a sqare grid.",
   );
@@ -64,18 +65,24 @@ function generateRandomColor(params) {
   return `rgb(${red}, ${green}, ${blue})`;
 }
 
+function colorSquare(e) {
+  e.target.style.backgroundColor = color ? generateRandomColor() : "black";
+}
 
 function handleMouseOver(e) {
   console.log("in mouseover");
   console.log("target:", e.target);
-  e.target.style.backgroundColor = generateRandomColor();
+  if (e.target !== grid) {
+    colorSquare(e);
+  }
 }
 
 let color = false;
 const changeSize = document.querySelector("#btn-change-size");
 const colorOnOff = document.querySelector("#btn-toggle-color");
 colorOnOff.addEventListener("click", handleClick);
+changeSize.addEventListener("click", handleClick);
 
-const grid = document.querySelector(".grid")
+const grid = document.querySelector(".grid");
 generateGrid();
-grid.addEventListener("mouseover", handleMouseOver)
+grid.addEventListener("mouseover", handleMouseOver);
