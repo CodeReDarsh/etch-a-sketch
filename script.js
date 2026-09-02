@@ -12,7 +12,6 @@ function generateGrid(dimension = 16) {
 }
 
 function promptForSize() {
-  console.log("prompting user for size");
   let dimension = prompt(
     "Enter a grid length between 1 and 100 for generating a sqare grid.",
   );
@@ -33,7 +32,6 @@ function promptForSize() {
 }
 
 function toggleColor() {
-  console.log("in color toggle");
   color = !color;
   const modeText = colorOnOff.lastElementChild;
   if (color) {
@@ -46,7 +44,6 @@ function toggleColor() {
 }
 
 function handleClick(e) {
-  console.log("in handleClick", e);
   if (e.currentTarget.id === "btn-change-size") {
     promptForSize();
   } else if (e.currentTarget.id === "btn-toggle-color") {
@@ -58,7 +55,7 @@ function generateRandom() {
   return Math.floor(Math.random() * 256);
 }
 
-function generateRandomColor(params) {
+function generateRandomColor() {
   const red = generateRandom();
   const green = generateRandom();
   const blue = generateRandom();
@@ -66,12 +63,17 @@ function generateRandomColor(params) {
 }
 
 function colorSquare(e) {
-  e.target.style.backgroundColor = color ? generateRandomColor() : "black";
+  console.log("current square color:", e.target.style.backgroundColor);
+  if (e.target.style.backgroundColor === "") {
+    e.target.style.backgroundColor = color ? generateRandomColor() : "black";
+    e.target.style.opacity = 0;
+  }
+  e.target.style.opacity = Number(e.target.style.opacity) + 0.1;
+  console.log("current square opacity:", e.target.style.opacity);
+  console.log("opacity datatype:", typeof e.target.style.opacity);
 }
 
 function handleMouseOver(e) {
-  console.log("in mouseover");
-  console.log("target:", e.target);
   if (e.target !== grid) {
     colorSquare(e);
   }
