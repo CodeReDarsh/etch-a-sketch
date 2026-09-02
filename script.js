@@ -59,18 +59,23 @@ function generateRandomColor() {
   const red = generateRandom();
   const green = generateRandom();
   const blue = generateRandom();
-  return `rgb(${red}, ${green}, ${blue})`;
+  return `rgba(${red}, ${green}, ${blue}, 0.1)`;
 }
 
 function colorSquare(e) {
-  console.log("current square color:", e.target.style.backgroundColor);
   if (e.target.style.backgroundColor === "") {
-    e.target.style.backgroundColor = color ? generateRandomColor() : "black";
-    e.target.style.opacity = 0;
+    e.target.style.backgroundColor = color
+      ? generateRandomColor()
+      : "rgba(0, 0, 0, 0.1)";
   }
-  e.target.style.opacity = Number(e.target.style.opacity) + 0.1;
-  console.log("current square opacity:", e.target.style.opacity);
-  console.log("opacity datatype:", typeof e.target.style.opacity);
+  let temp = e.target.style.backgroundColor;
+  if (temp.startsWith("rgba")) {
+    temp = temp.split(" ");
+    let alphaValue = Number(temp[3].substring(0, 3));
+    if (alphaValue < 1) alphaValue += 0.1;
+    temp[3] = alphaValue;
+    e.target.style.backgroundColor = temp.join(" ");
+  }
 }
 
 function handleMouseOver(e) {
